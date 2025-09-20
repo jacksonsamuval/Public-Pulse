@@ -34,7 +34,8 @@
 - Created `README.md` for documentation
 
 ## 🖼 Project Image / Screenshot
-![Backend Day 1](https://raw.githubusercontent.com/jacksonsamuval/Public-Pulse/main/Images/Backend-Day_1.png)
+![Backend Day 1](https://github.com/jacksonsamuval/Public-Pulse/blob/2665888a7ab2ce3267ebef39c132d6d0d2e79afe/Images/Backend-Day_1.png)
+
 
 </details>
 
