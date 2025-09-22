@@ -97,4 +97,25 @@ public class ProblemService {
         List<Problem> problems = problemRepo.findByStatusAndTakenBy(status1,users);
         return ResponseEntity.status(200).body(problems);
     }
+
+    public ResponseEntity<?> reviewAndCompleteProblem(Integer id, String userResponse, Long rating) {
+        Users users = UserPrincipal.getCurrentUser();
+        Optional<Problem> problem = problemRepo.findById(id);
+        Status status = Status.REVIEW_PENDING;
+        if (problem.get().getStatus()==status){
+            problem.get().setUserResponse(userResponse);
+            problem.get().setRating(rating);
+            problem.get().setStatus(Status.COMPLETED);
+            users.setTotProblemSolved(users.getTotProblemSolved()+1);
+            Users official = problem.get().getTakenBy();
+
+            official.setTotProblemSolved(official.getTotProblemSolved()+1);
+            official.setTotPoints(official.getTotPoints()+rating);
+            userRepo.save(users);
+            userRepo.save(official);
+            return ResponseEntity.status(200).body("Success");
+        } else {
+            return ResponseEntity.status(401).body("Problem is Still in Progress");
+        }
+    }
 }

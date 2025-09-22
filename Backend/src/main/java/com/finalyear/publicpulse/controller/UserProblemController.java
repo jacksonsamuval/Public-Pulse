@@ -4,10 +4,7 @@ import com.finalyear.publicpulse.service.ProblemService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
@@ -29,4 +26,24 @@ public class UserProblemController {
         }
     }
 
+    @GetMapping("/getByProblemStatus")
+    public ResponseEntity<?> getByProblemStatus(@RequestParam String status){
+        try {
+            return problemService.getByProblemStatus(status);
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
+
+    @PostMapping("/reviewAndComplete")
+    public ResponseEntity<?> reviewAndCompleteProblem(@RequestParam Integer id,
+                                                      @RequestParam String userResponse,
+                                                      @RequestParam Long rating
+    ){
+        try {
+            return problemService.reviewAndCompleteProblem(id,userResponse,rating);
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
 }
