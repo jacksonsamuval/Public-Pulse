@@ -1,10 +1,11 @@
 package com.finalyear.publicpulse.service;
 
-import com.finalyear.publicpulse.details.Role;
 import com.finalyear.publicpulse.dto.LoginDto;
 import com.finalyear.publicpulse.dto.OfficialRegisterDto;
 import com.finalyear.publicpulse.jwt.JwtService;
+import com.finalyear.publicpulse.model.Roles;
 import com.finalyear.publicpulse.model.Users;
+import com.finalyear.publicpulse.repo.RolesRepo;
 import com.finalyear.publicpulse.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OfficialsAuthService {
@@ -24,6 +26,9 @@ public class OfficialsAuthService {
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private RolesRepo rolesRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -39,7 +44,7 @@ public class OfficialsAuthService {
             );
 
             if (authentication.isAuthenticated()) {
-                if (users.getRole() != Role.USER) {
+                if (!Objects.equals(users.getRole().getName(), "USER")) {
                     String token = jwtService.generateToken(authentication.getName());
                     return ResponseEntity.ok(token);
                 } else {
@@ -58,13 +63,21 @@ public class OfficialsAuthService {
 
     public ResponseEntity<?> register(OfficialRegisterDto registerDto) {
         Users users = new Users();
-        users.setRole(registerDto.getRole());
+        Roles roles = rolesRepo.findRolesByName(registerDto.getRole());
+        users.setRole(roles);
         users.setAge(registerDto.getAge());
         users.setUsername(registerDto.getUsername());
         users.setEmail(registerDto.getEmail());
         users.setName(registerDto.getName());
         users.setPassword(registerDto.getPassword());
         users.setMobileNo(registerDto.getMobileNo());
+        users.setAddress(registerDto.getAddress());
+        users.setCity(registerDto.getCity());
+        users.setState(registerDto.getState());
+        users.setTaluk(registerDto.getTaluk());
+        users.setDistrict(registerDto.getDistrict());
+        users.setCountry(registerDto.getCountry());
+        users.setPinCode(registerDto.getPinCode());
         if (userRepo.findUserByEmail(users.getEmail()).isPresent()){
             return ResponseEntity.status(401).body("Email Exists");
         }
@@ -79,13 +92,5 @@ public class OfficialsAuthService {
         }
         Users users1 = userRepo.save(users);
         return ResponseEntity.status(200).body(users1);
-    }
-
-    public ResponseEntity<?> getAllRoles() {
-        List<String> roles = Arrays.stream(Role.values())
-                .filter(role -> role != Role.USER)
-                .map(Enum::name)
-                .toList();
-        return ResponseEntity.ok(roles);
     }
 }

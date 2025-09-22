@@ -29,7 +29,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
         return path.startsWith("/auth/user/login") || path.startsWith("/auth/user/userRegister") || path.startsWith("/auth/user/hello") ||
                 path.startsWith("/auth/officials/hello") || path.startsWith("/auth/officials/login") || path.startsWith("/auth/officials/register")
-                || path.startsWith("/auth/officials/getAllRoles");
+                || path.startsWith("/auth/officials/getAllRoles") || path.startsWith("/role/addRoles") || path.startsWith("/role/getAllRoles");
     }
 
 

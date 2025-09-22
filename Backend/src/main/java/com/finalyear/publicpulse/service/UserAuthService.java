@@ -1,10 +1,11 @@
 package com.finalyear.publicpulse.service;
 
-import com.finalyear.publicpulse.details.Role;
 import com.finalyear.publicpulse.dto.LoginDto;
 import com.finalyear.publicpulse.dto.UserRegisterDto;
 import com.finalyear.publicpulse.jwt.JwtService;
+import com.finalyear.publicpulse.model.Roles;
 import com.finalyear.publicpulse.model.Users;
+import com.finalyear.publicpulse.repo.RolesRepo;
 import com.finalyear.publicpulse.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class UserAuthService {
 
     @Autowired
     private JwtService jwtService;
+
+    @Autowired
+    private RolesRepo rolesRepo;
 
     @Autowired
     private UserRepo userRepo;
@@ -49,13 +53,21 @@ public class UserAuthService {
 
     public ResponseEntity<?> register(UserRegisterDto registerDto) {
         Users users = new Users();
-        users.setRole(Role.USER);
+        Roles roles = rolesRepo.findRolesByName("USER");
+        users.setRole(roles);
         users.setAge(registerDto.getAge());
         users.setUsername(registerDto.getUsername());
         users.setEmail(registerDto.getEmail());
         users.setName(registerDto.getName());
         users.setPassword(registerDto.getPassword());
         users.setMobileNo(registerDto.getMobileNo());
+        users.setAddress(registerDto.getAddress());
+        users.setCity(registerDto.getCity());
+        users.setState(registerDto.getState());
+        users.setTaluk(registerDto.getTaluk());
+        users.setDistrict(registerDto.getDistrict());
+        users.setCountry(registerDto.getCountry());
+        users.setPinCode(registerDto.getPinCode());
         if (userRepo.findUserByEmail(users.getEmail()).isPresent()){
             return ResponseEntity.status(401).body("Email Exists");
         }

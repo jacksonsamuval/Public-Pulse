@@ -1,10 +1,6 @@
 package com.finalyear.publicpulse.model;
 
-import com.finalyear.publicpulse.details.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Users {
@@ -15,9 +11,74 @@ public class Users {
     private String name;
     private String age;
     private String mobileNo;
+    private String address;
+    private String PinCode;
+    private String city;
+    private String taluk;
+    private String district;
+    private String state;
+    private String country;
     private String email;
-    private Role role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Roles role;
     private String password;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPinCode() {
+        return PinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        PinCode = pinCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getTaluk() {
+        return taluk;
+    }
+
+    public void setTaluk(String taluk) {
+        this.taluk = taluk;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getPassword() {
         return password;
@@ -75,11 +136,11 @@ public class Users {
         this.email = email;
     }
 
-    public Role getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 }

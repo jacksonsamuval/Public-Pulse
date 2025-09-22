@@ -32,13 +32,4 @@ public class OfficialAuthController {
             return ResponseEntity.status(400).body("Server Error");
         }
     }
-
-    @GetMapping("/getAllRoles")
-    public ResponseEntity<?> getAllRoles(){
-        try {
-            return officialsService.getAllRoles();
-        } catch (Exception e){
-            return ResponseEntity.status(400).body("Server Error");
-        }
-    }
 }
