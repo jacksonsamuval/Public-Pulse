@@ -39,6 +39,30 @@
 
 </details>
 
+<details>
+<summary><strong>Day 2 - Problem Management & Role Handling</strong></summary>
+
+- Implemented **Problem submission flow** (`UserProblemController`)  
+  - Citizens can submit problems with **description, address, city, pincode, and image upload**  
+  - Added ability to **review & complete problems with feedback and rating**  
+  - Fetch problems by **status** for better tracking  
+
+- Implemented **Official problem management** (`OfficialProblemController`)  
+  - Officials can **view problems by city**  
+  - Officials can **take up & solve problems** with response notes  
+  - Added **status update endpoints** to track progress (NOT_STARTED → PROGRESS → COMPLETED)  
+  - Fetch problems assigned to a specific official  
+
+- Implemented **Role management** (`RolesController`)  
+  - Add new roles dynamically (e.g., USER, OFFICIAL, ADMIN)  
+  - Retrieve all roles with a single endpoint  
+
+## 🖼 Project Image / Screenshot
+![Backend Day 2](https://github.com/jacksonsamuval/Public-Pulse/blob/main/Images/Backend-Day_2.png)
+
+</details>
+
+
 ---
 
 ## ⚡ How to Run
