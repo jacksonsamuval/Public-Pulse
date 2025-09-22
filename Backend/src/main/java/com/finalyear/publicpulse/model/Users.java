@@ -23,6 +23,42 @@ public class Users {
     @JoinColumn(name = "role_id")
     private Roles role;
     private String password;
+    private Long totProblemsReported;
+    private Long totalProblemAttempted;
+    private Long totProblemSolved;
+    private Long totPoints;
+
+    public Long getTotProblemsReported() {
+        return totProblemsReported;
+    }
+
+    public void setTotProblemsReported(Long totProblemsReported) {
+        this.totProblemsReported = totProblemsReported;
+    }
+
+    public Long getTotalProblemAttempted() {
+        return totalProblemAttempted;
+    }
+
+    public void setTotalProblemAttempted(Long totalProblemAttempted) {
+        this.totalProblemAttempted = totalProblemAttempted;
+    }
+
+    public Long getTotPoints() {
+        return totPoints;
+    }
+
+    public void setTotPoints(Long totPoints) {
+        this.totPoints = totPoints;
+    }
+
+    public Long getTotProblemSolved() {
+        return totProblemSolved;
+    }
+
+    public void setTotProblemSolved(Long totProblemSolved) {
+        this.totProblemSolved = totProblemSolved;
+    }
 
     public String getAddress() {
         return address;

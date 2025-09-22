@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/problem")
-public class ProblemController {
+public class UserProblemController {
     @Autowired
     private ProblemService problemService;
     @PostMapping("/submitProblem")
@@ -28,4 +28,5 @@ public class ProblemController {
             return ResponseEntity.status(401).body("Server Error");
         }
     }
+
 }

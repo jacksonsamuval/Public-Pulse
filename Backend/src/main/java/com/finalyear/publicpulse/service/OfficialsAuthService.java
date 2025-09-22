@@ -78,6 +78,10 @@ public class OfficialsAuthService {
         users.setDistrict(registerDto.getDistrict());
         users.setCountry(registerDto.getCountry());
         users.setPinCode(registerDto.getPinCode());
+        users.setTotalProblemAttempted(0L);
+        users.setTotPoints(0L);
+        users.setTotProblemSolved(0L);
+        users.setTotProblemsReported(null);
         if (userRepo.findUserByEmail(users.getEmail()).isPresent()){
             return ResponseEntity.status(401).body("Email Exists");
         }

@@ -23,9 +23,36 @@ public class Problem {
     @JoinColumn(name = "user_id", nullable = false)
     private Users users;
 
-    @OneToOne
-    @JoinColumn(name = "official_Id")
+    @ManyToOne
+    @JoinColumn(name = "official_id")
     private Users takenBy;
+    private String officialResponse;
+    private String userResponse;
+    private Long rating;
+
+    public String getOfficialResponse() {
+        return officialResponse;
+    }
+
+    public void setOfficialResponse(String officialResponse) {
+        this.officialResponse = officialResponse;
+    }
+
+    public String getUserResponse() {
+        return userResponse;
+    }
+
+    public void setUserResponse(String userResponse) {
+        this.userResponse = userResponse;
+    }
+
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
+    }
 
     public Users getTakenBy() {
         return takenBy;

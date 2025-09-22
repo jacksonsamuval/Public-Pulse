@@ -68,6 +68,10 @@ public class UserAuthService {
         users.setDistrict(registerDto.getDistrict());
         users.setCountry(registerDto.getCountry());
         users.setPinCode(registerDto.getPinCode());
+        users.setTotalProblemAttempted(null);
+        users.setTotPoints(null);
+        users.setTotProblemSolved(0L);
+        users.setTotProblemsReported(0L);
         if (userRepo.findUserByEmail(users.getEmail()).isPresent()){
             return ResponseEntity.status(401).body("Email Exists");
         }
