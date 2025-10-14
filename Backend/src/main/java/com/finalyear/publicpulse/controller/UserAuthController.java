@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth/user")
+@CrossOrigin(origins = "*")
 public class UserAuthController {
     @Autowired
     private UserAuthService userAuthService;

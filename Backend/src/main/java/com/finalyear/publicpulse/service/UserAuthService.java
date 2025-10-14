@@ -15,6 +15,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class UserAuthService {
     @Autowired
@@ -40,7 +43,11 @@ public class UserAuthService {
 
             if (authentication.isAuthenticated()) {
                 String token = jwtService.generateToken(authentication.getName());
-                return ResponseEntity.ok(token);
+                Map<String, String> response = new HashMap<>();
+                response.put("token", token);
+                response.put("message", "Login successful");
+
+                return ResponseEntity.ok(response);
             } else {
                 return ResponseEntity.status(401).body("Invalid password");
             }
