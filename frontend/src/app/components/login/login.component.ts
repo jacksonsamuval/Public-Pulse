@@ -28,8 +28,12 @@ export class LoginComponent {
         this.isLoading = false;
         this.toastr.success('Login successful!', 'Success');
         localStorage.setItem('token',response.token);
+        localStorage.setItem('user',JSON.stringify(response.user));
+        
+        console.log('Token from storage: ', localStorage.getItem('token'));
+        console.log('User Data from storage:', localStorage.getItem('user'));
+
         this.router.navigate(["/"]);
-        console.log('Token from storage', localStorage.getItem('token'));
       },
       error: (error: HttpErrorResponse) => {
         this.isLoading = false;

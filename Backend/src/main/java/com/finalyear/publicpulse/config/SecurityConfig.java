@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf(customizer->customizer.disable())
                 .authorizeHttpRequests(authorize->authorize.requestMatchers("/auth/user/login","/auth/user/register","/auth/user/hello","/auth/officials/hello","/auth/officials/login",
-                                "/auth/officials/register","/auth/officials/getAllRoles","/role/addRoles","/role/getAllRoles").permitAll()
+                                "/auth/officials/register","/auth/officials/getAllRoles","/role/addRoles","/role/getAllRoles","/auth/user/valid").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session->session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

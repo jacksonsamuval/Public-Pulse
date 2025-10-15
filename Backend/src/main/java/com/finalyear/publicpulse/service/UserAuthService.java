@@ -31,32 +31,34 @@ public class UserAuthService {
 
     @Autowired
     private UserRepo userRepo;
-    public ResponseEntity<?> login(LoginDto loginDto) {
-        Users users = userRepo.findUsersByUsername(loginDto.getUsername());
-        if (users == null) {
-            return ResponseEntity.status(404).body("Username not found");
-        }
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
-            );
-
-            if (authentication.isAuthenticated()) {
-                String token = jwtService.generateToken(authentication.getName());
-                Map<String, String> response = new HashMap<>();
-                response.put("token", token);
-                response.put("message", "Login successful");
-
-                return ResponseEntity.ok(response);
-            } else {
-                return ResponseEntity.status(401).body("Invalid password");
+        public ResponseEntity<?> login(LoginDto loginDto) {
+            Users users = userRepo.findUsersByUsername(loginDto.getUsername());
+            if (users == null) {
+                return ResponseEntity.status(404).body("Username not found");
             }
-        } catch (BadCredentialsException ex) {
-            return ResponseEntity.status(401).body("Invalid password");
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Server Error");
+            try {
+                Authentication authentication = authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword())
+                );
+    
+                if (authentication.isAuthenticated()) {
+                    String token = jwtService.generateToken(authentication.getName());
+                    Map<String, Object> response = new HashMap<>();
+                    Users userData = userRepo.findUsersByUsername(loginDto.getUsername());
+                    response.put("user",userData);
+                    response.put("token", token);
+                    response.put("message", "Login successful");
+    
+                    return ResponseEntity.ok(response);
+                } else {
+                    return ResponseEntity.status(401).body("Invalid password");
+                }
+            } catch (BadCredentialsException ex) {
+                return ResponseEntity.status(401).body("Invalid password");
+            } catch (Exception e) {
+                return ResponseEntity.status(500).body("Server Error");
+            }
         }
-    }
 
     public ResponseEntity<?> register(UserRegisterDto registerDto) {
         Users users = new Users();
@@ -93,5 +95,10 @@ public class UserAuthService {
         }
         Users users1 = userRepo.save(users);
         return ResponseEntity.status(200).body(users1);
+    }
+
+    public ResponseEntity<?> valid(String token) {
+        boolean isValid = jwtService.isTokenExpired(token);
+        return ResponseEntity.status(200).body(isValid);
     }
 }

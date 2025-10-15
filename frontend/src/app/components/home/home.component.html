@@ -1,1 +1,432 @@
-<p>home works!</p>
+<header>
+    <nav
+        class="bg-gray-100 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <div
+            class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <a href="https://flowbite.com" class="flex items-center">
+                <img src="/images/logo.png"
+                    class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+                <span
+                    class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Public
+                    Pulse</span>
+            </a>
+
+            <div *ngIf="!valid" class="flex items-center lg:order-2">
+                <a routerLink="/login"
+                    class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                    Login</a>
+                <a routerLink="/register"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 bg-blue-600">Get
+                    started</a>
+                <button data-collapse-toggle="mobile-menu-2" type="button"
+                    class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="mobile-menu-2" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"><path
+                            fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path></svg>
+                    <svg class="hidden w-6 h-6" fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"><path
+                            fill-rule="evenodd"
+                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+
+            <div *ngIf="valid && user"
+                class="flex items-center lg:order-2 space-x-3 bg-white dark:bg-gray-800 px-4 py-2 rounded">
+                <h3
+                    class="text-gray-800 dark:text-gray-200 text-lg font-semibold">
+                    Welcome, <span
+                        class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
+                </h3>
+            </div>
+
+            <div
+                class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+                id="mobile-menu-2">
+                <ul
+                    class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 text-black dark:text-white"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Report
+                            Problem</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About
+                            Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section class="bg-white dark:bg-gray-900 min-h-screen flex items-center">
+    <div
+        class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div class="mr-auto place-self-center lg:col-span-7">
+            <h1
+                class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+                Your Voice Matters, Your Problems Get Solved
+            </h1>
+            <p
+                class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+                Connect directly with your representatives and local
+                authorities.
+                Report community issues, track resolution progress, and see real
+                change
+                happen in your neighborhood. Together, we build better
+                communities.
+            </p>
+            <a routerLink="/register" *ngIf="!valid"
+                class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+                Get Started
+                <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor"
+                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </a>
+            <a
+                class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+                Report a Problem
+            </a>
+        </div>
+        <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+            <img
+                src="/images/hero.png"
+                alt="mockup">
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-gray-200">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="mb-14 text-center">
+            <h2
+                class="text-4xl text-center font-bold text-gray-900 leading-[3.25rem] mb-6 max-w-max lg:max-w-3xl lg:mx-auto">
+                Bridging Communities and Government Through Technology</h2>
+            <p
+                class="text-base font-normal text-gray-500 lg:max-w-2xl lg:mx-auto mb-8">
+                Empowering citizens to report local issues while enabling
+                officials to respond efficiently.
+                Real-time tracking, transparent progress, and measurable
+                community impact.
+            </p>
+            <div *ngIf="!valid"
+                class="flex flex-col justify-center md:flex-row gap-5 max-w-lg mx-auto md:max-w-2xl lg:max-w-full">
+                <a routerLink="/register"
+                    class="cursor-pointer bg-indigo-600 py-3 px-6 rounded-full flex items-center justify-center text-sm font-semibold text-white transition-all duration-500 focus:outline-none hover:bg-indigo-700">
+                    Get started
+                </a>
+            </div>
+        </div>
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-lg mx-auto md:max-w-2xl lg:max-w-full">
+            <div class="relative w-full h-auto md:col-span-2">
+                <div
+                    class="bg-gray-800 rounded-2xl flex  justify-between flex-row flex-wrap">
+                    <div class="p-5  xl:p-8 w-full md:w-1/2 ">
+                        <div class="block">
+                            <svg width="30" height="30" viewBox="0 0 30 30"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M15 12.5V18.75M18.75 2.5L11.25 2.5M15 28.75C8.7868 28.75 3.75 23.7132 3.75 17.5C3.75 11.2868 8.7868 6.25 15 6.25C21.2132 6.25 26.25 11.2868 26.25 17.5C26.25 23.7132 21.2132 28.75 15 28.75Z"
+                                    stroke="white" stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+                        </div>
+                        <h3
+                            class="text-lg font-bold xl:text-xl text-white py-5 w-full xl:w-64">
+                            Report a Problem
+                        </h3>
+                        <p
+                            class="text-xs font-normal text-gray-300 w-full mb-8 xl:w-64">
+                            File complaints about infrastructure, sanitation, or
+                            public services. Your concerns reach the right
+                            politicians instantly.
+                        </p>
+                        <button
+                            class="py-2 px-5 border border-solid border-gray-300 rounded-full gap-2 text-xs text-white font-semibold flex items-center justify-between transition-all duration-500 hover:bg-white/5">
+                            Report a Problem
+                            <svg width="6" height="10" viewBox="0 0 6 10"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M1 9L3.58579 6.41421C4.25245 5.74755 4.58579 5.41421 4.58579 5C4.58579 4.58579 4.25245 4.25245 3.58579 3.58579L1 1"
+                                    stroke="white" stroke-width="1.6"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                            </svg>
+
+                        </button>
+                    </div>
+                    <div class="relative hidden h-auto md:w-1/2 md:block">
+                        <img
+                            src="https://pagedone.io/asset/uploads/1695028873.png"
+                            alt="Header tailwind Section"
+                            class="h-full ml-auto object-cover">
+                    </div>
+                </div>
+            </div>
+            <div class="relative w-full h-auto">
+                <div class="bg-indigo-500 rounded-2xl p-5  xl:p-8 h-full">
+                    <div class="block">
+                        <svg width="30" height="30" viewBox="0 0 30 30"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M24.6429 11.4286C24.6429 14.3872 20.2457 16.7857 14.8214 16.7857C9.3972 16.7857 5 14.3872 5 11.4286M24.6429 16.7857C24.6429 19.7444 20.2457 22.1429 14.8214 22.1429C9.3972 22.1429 5 19.7444 5 16.7857M24.6429 22.1429C24.6429 25.1015 20.2457 27.5 14.8214 27.5C9.3972 27.5 5 25.1015 5 22.1429M24.6429 6.96429C24.6429 9.42984 20.2457 11.4286 14.8214 11.4286C9.3972 11.4286 5 9.42984 5 6.96429C5 4.49873 9.3972 2.5 14.8214 2.5C20.2457 2.5 24.6429 4.49873 24.6429 6.96429Z"
+                                stroke="white" stroke-width="2"
+                                stroke-linecap="round"></path>
+                        </svg>
+                    </div>
+                    <h3
+                        class="py-5 text-white text-lg font-bold xl:text-xl">View
+                        Completed Problems</h3>
+                    <p class="text-xs font-normal text-white mb-8">See how
+                        community issues are being resolved. Track the progress
+                        from report to solution with full transparency.</p>
+                    <button
+                        class="py-2 px-5 border border-solid border-gray-300 rounded-full gap-2 text-xs text-white font-semibold flex items-center justify-between transition-all duration-500 hover:bg-white/5">
+                        View
+                        <svg width="6" height="10" viewBox="0 0 6 10"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1 9L3.58579 6.41421C4.25245 5.74755 4.58579 5.41421 4.58579 5C4.58579 4.58579 4.25245 4.25245 3.58579 3.58579L1 1"
+                                stroke="white" stroke-width="1.6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+
+                    </button>
+                </div>
+            </div>
+            <div class="relative w-full h-auto">
+                <div class="bg-violet-500 rounded-2xl p-5 xl:p-8 h-full">
+                    <div class="block">
+                        <svg width="30" height="30" viewBox="0 0 30 30"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M26.7301 15.661C26.7301 22.1995 21.306 27.5 14.6151 27.5C7.9241 27.5 2.5 22.1995 2.5 15.661C2.5 9.1225 7.9241 3.822 14.6151 3.822M18.1313 10.1507L18.1313 4.85383C18.1313 3.22503 19.6455 2.00299 21.1519 2.70013C23.7608 3.90751 26.6177 6.25557 27.456 10.2563C27.7542 11.6798 26.4931 12.8563 25.0064 12.8368L20.7873 12.7814C19.3147 12.762 18.1313 11.5899 18.1313 10.1507Z"
+                                stroke="white" stroke-width="2"
+                                stroke-linecap="round"></path>
+                        </svg>
+
+                    </div>
+                    <h3
+                        class="py-5 text-white text-lg font-bold xl:text-xl">View
+                        All Submitted Problems</h3>
+                    <p class="text-xs font-normal text-white mb-8"> Track the
+                        status of all your reports. Monitor progress and stay
+                        updated on resolution timelines. </p>
+                    <button
+                        class="py-2 px-5 border border-solid border-gray-300 rounded-full gap-2 text-xs text-white font-semibold flex items-center justify-between transition-all duration-500 hover:bg-white/5">
+                        View Problems
+                        <svg width="6" height="10" viewBox="0 0 6 10"
+                            fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M1 9L3.58579 6.41421C4.25245 5.74755 4.58579 5.41421 4.58579 5C4.58579 4.58579 4.25245 4.25245 3.58579 3.58579L1 1"
+                                stroke="white" stroke-width="1.6"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                        </svg>
+
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+        <div class="max-w-screen-md mb-8 lg:mb-16">
+            <h2
+                class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                Empowering Communities, Enabling Solutions
+            </h2>
+            <p class="text-gray-500 sm:text-xl dark:text-gray-400">
+                Connect directly with local officials to report problems and
+                track solutions.
+                Together, we're building more responsive and accountable
+                communities.
+            </p>
+        </div>
+        <div
+            class="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+            <div>
+                <div
+                    class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                    <svg
+                        class="w-5 h-5 lg:w-6 lg:h-6 text-black dark:text-white"
+                        fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Easy Problem
+                    Reporting</h3>
+                <p class="text-gray-500 dark:text-gray-400">Submit community
+                    issues in seconds with our intuitive reporting system.
+                    Upload photos, add locations, and provide detailed
+                    descriptions effortlessly.</p>
+            </div>
+            <div>
+                <div
+                    class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                    <svg
+                        class="w-5 h-5 lg:w-6 lg:h-6 text-black dark:text-white"
+                        fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
+                        <path
+                            d="M6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Direct
+                    Official Access</h3>
+                <p class="text-gray-500 dark:text-gray-400">Your reports go
+                    straight to the relevant local authorities and
+                    representatives, ensuring quick attention and appropriate
+                    action.</p>
+            </div>
+            <div>
+                <div
+                    class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                    <svg
+                        class="w-5 h-5 lg:w-6 lg:h-6 text-black dark:text-white"
+                        fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Real-time
+                    Tracking</h3>
+                <p class="text-gray-500 dark:text-gray-400">Monitor your
+                    report's progress from submission to resolution. Get updates
+                    at every stage and know exactly when action is taken.</p>
+            </div>
+            <div>
+                <div
+                    class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                    <svg
+                        class="w-5 h-5 text-black dark:text-white lg:w-6 lg:h-6"
+                        fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Transparent
+                    Process</h3>
+                <p class="text-gray-500 dark:text-gray-400">Complete visibility
+                    into how issues are handled. See official responses,
+                    assigned departments, and estimated resolution
+                    timelines.</p>
+            </div>
+            <div>
+                <div
+                    class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                    <svg
+                        class="w-5 h-5 lg:w-6 lg:h-6 text-black dark:text-white"
+                        fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Community
+                    Engagement</h3>
+                <p class="text-gray-500 dark:text-gray-400">See what issues
+                    others are reporting in your area. Collaborate with
+                    neighbors and build stronger, more responsive communities
+                    together.</p>
+            </div>
+            <div>
+                <div
+                    class="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+                    <svg
+                        class="w-5 h-5 lg:w-6 lg:h-6 text-black dark:text-white"
+                        fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h3 class="mb-2 text-xl font-bold dark:text-white">Verified
+                    Resolutions</h3>
+                <p class="text-gray-500 dark:text-gray-400">See completed issues
+                    with before-and-after evidence. Trust that reported problems
+                    are actually being solved in your community.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="p-4 bg-gray-200 md:p-8 lg:p-10 dark:bg-gray-800">
+    <div class="mx-auto max-w-screen-xl text-center">
+        <a href="#"
+            class="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white">
+            <img src="/images/logo.png"
+                class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+            Public Pulse
+        </a>
+        <p class="my-6 text-gray-500 dark:text-gray-400">Open-source library of
+            over 400+ web components and interactive elements built for better
+            web.</p>
+        <ul
+            class="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a>
+            </li>
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">Report a
+                    Problem</a>
+            </li>
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6 ">Completed
+                    Problems</a>
+            </li>
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">FAQs</a>
+            </li>
+            <li>
+                <a href="#" class="mr-4 hover:underline md:mr-6">Contact</a>
+            </li>
+        </ul>
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">©
+            2025-2026 <a href="#" class="hover:underline">Jackson™</a>. All
+            Rights Reserved.</span>
+    </div>
+</footer>
