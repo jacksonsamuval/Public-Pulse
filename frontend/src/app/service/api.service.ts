@@ -25,4 +25,17 @@ export class ApiService {
     });
     return this.http.get(environment.API_URL+"/auth/user/valid", {headers})
   }
+
+  submitProblem(formData: FormData) {
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    return this.http.post(
+      environment.API_URL + "/problem/submitProblem",
+      formData,
+      { headers }
+    );
+  }
 }

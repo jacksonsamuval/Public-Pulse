@@ -58,4 +58,14 @@ export class HomeComponent implements OnInit {
       })
     }
   }
+
+  goToSubmit() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    this.router.navigate(['/submitForm']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
 }
