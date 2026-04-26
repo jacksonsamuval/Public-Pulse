@@ -37,12 +37,16 @@
             </div>
 
             <div *ngIf="valid && user"
-                class="flex items-center lg:order-2 space-x-3 bg-white dark:bg-gray-800 px-4 py-2 rounded">
-                <h3
-                    class="text-gray-800 dark:text-gray-200 text-lg font-semibold">
-                    Welcome, <span
-                        class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
+                class="flex items-center lg:order-2 space-x-4 bg-white dark:bg-gray-800 px-4 py-2 rounded">
+                <h3 class="text-gray-800 dark:text-gray-200 text-lg font-semibold">
+                    Welcome, <span class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
                 </h3>
+                
+                <button 
+                    (click)="logout()"
+                    class="text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-4 py-2 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900 transition-colors">
+                    Logout
+                </button>
             </div>
 
             <div
@@ -56,29 +60,29 @@
                             aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
+                        <a
+                            (click)="goToSubmit()"
+                            class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            Report Problem
+                        </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
+                        <a (click)="goToPolitians()"
+                            class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
-                    </li>
-                    <li>
-                        <a href="#"
+                        <a (click)="goToAboutUs()"
                             class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About
                             Us</a>
                     </li>
                 </ul>
             </div>
+            
         </div>
     </nav>
 </header>
 
-<div class="h-screen dark:bg-gray-600 flex items-center justify-center overflow-hidden">
+<div class="h-200 dark:bg-gray-300 flex items-center justify-center overflow-hidden">
   <div class="flex dark:bg-gray-200 rounded-2xl shadow-2xl overflow-hidden mx-auto max-w-sm lg:max-w-5xl w-full">
 
     <!-- LEFT IMAGE SECTION -->
@@ -112,9 +116,39 @@
 
         <!-- Description -->
         <div class="mt-4">
-          <label class="block text-gray-700 text-sm font-semibold mb-2">
-            Description
-          </label>
+          <div class="flex justify-between items-center mb-2">
+            <label class="block text-gray-700 text-sm font-semibold">
+              Description
+            </label>
+            
+            <div class="flex items-center gap-3">
+            <select 
+              name="speechLanguage"
+              [(ngModel)]="selectedLanguage" 
+              (change)="onLanguageChange()" 
+              [disabled]="isListening"
+              class="text-xs text-gray-600 bg-gray-100 border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-500 disabled:opacity-50">
+              <option value="en-IN">English</option>
+              <option value="hi-IN">Hindi (हिंदी)</option>
+              <option value="ta-IN">Tamil (தமிழ்)</option>
+              <option value="kn-IN">Kannada (ಕನ್ನಡ)</option>
+            </select>
+
+              <button
+                type="button"
+                (click)="startListening()"
+                [ngClass]="{'text-red-500 animate-pulse': isListening, 'text-gray-500 hover:text-indigo-600': !isListening}"
+                class="flex items-center gap-1 text-sm font-medium transition duration-200 focus:outline-none"
+                title="Click to speak">
+                
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8h-2a5 5 0 01-10 0H3a7.001 7.001 0 006 6.93V17H6v2h8v-2h-3v-2.07z" clip-rule="evenodd" />
+                </svg>
+                {{ isListening ? 'Listening...' : 'Use Voice' }}
+              </button>
+            </div>
+          </div>
+          
           <textarea
             name="description"
             [(ngModel)]="problem.description"
@@ -274,5 +308,4 @@
     </div>
 
   </div>
-
 </div>

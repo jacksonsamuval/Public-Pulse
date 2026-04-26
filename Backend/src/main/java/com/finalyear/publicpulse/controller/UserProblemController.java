@@ -35,6 +35,24 @@ public class UserProblemController {
         }
     }
 
+    @GetMapping("/getByProblemStatusUser")
+    public ResponseEntity<?> getByProblemStatusUsers(@RequestParam String status){
+        try {
+            return problemService.getByProblemStatusUsers(status);
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
+
+    @GetMapping("/getAllProblemForUser")
+    public ResponseEntity<?> getAllProblemForUser(){
+        try {
+            return problemService.getAllProblemForUser();
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
+
     @PostMapping("/reviewAndComplete")
     public ResponseEntity<?> reviewAndCompleteProblem(@RequestParam Integer id,
                                                       @RequestParam String userResponse,
@@ -42,6 +60,15 @@ public class UserProblemController {
     ){
         try {
             return problemService.reviewAndCompleteProblem(id,userResponse,rating);
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
+
+    @GetMapping("/getAllPoliticians")
+    public ResponseEntity<?> getAllPoliticians(){
+        try {
+            return problemService.getAllPoliticians();
         } catch (Exception e){
             return ResponseEntity.status(400).body("server error");
         }

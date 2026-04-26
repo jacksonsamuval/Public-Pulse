@@ -118,4 +118,22 @@ public class ProblemService {
             return ResponseEntity.status(401).body("Problem is Still in Progress");
         }
     }
+
+    public ResponseEntity<?> getAllProblemForUser() {
+        Users users = UserPrincipal.getCurrentUser();
+        List<Problem> problems = problemRepo.findByUsers(users);
+        return ResponseEntity.ok(problems);
+    }
+
+    public ResponseEntity<?> getByProblemStatusUsers(String status) {
+        Users users = UserPrincipal.getCurrentUser();
+        Status status1 = Status.valueOf(status);
+        List<Problem> problems = problemRepo.findByStatusAndUsers(status1,users);
+        return ResponseEntity.status(200).body(problems);
+    }
+
+    public ResponseEntity<?> getAllPoliticians() {
+        List<Users> users = userRepo.findByRoleId(2);
+        return ResponseEntity.ok(users);
+    }
 }

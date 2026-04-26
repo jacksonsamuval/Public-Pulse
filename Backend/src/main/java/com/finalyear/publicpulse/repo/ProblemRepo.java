@@ -14,7 +14,9 @@ public interface ProblemRepo extends JpaRepository<Problem,Integer> {
 
     List<Problem> findUserByTakenBy(Users users);
 
-    List<Problem> findByStatusAndUsers(String status, Users users);
+    List<Problem> findByStatusAndUsers(Status status, Users users);
 
     List<Problem> findByStatusAndTakenBy(Status status, Users users);
+
+    List<Problem> findByUsers(Users users);
 }

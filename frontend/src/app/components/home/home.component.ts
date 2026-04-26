@@ -68,4 +68,35 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
+
+goToPolitians() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    this.router.navigate(['/viewPoliticians']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
+
+goToAboutUs() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    this.router.navigate(['/aboutUs']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
+
+logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.token = null;
+    this.user = null;
+    this.valid = false;
+    
+    this.toastr.success('Logged out successfully', 'Success');
+    this.router.navigate(['/login']); // Optional: redirect to login or home
+  }
 }

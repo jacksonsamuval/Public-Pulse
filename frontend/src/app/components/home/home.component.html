@@ -37,12 +37,16 @@
             </div>
 
             <div *ngIf="valid && user"
-                class="flex items-center lg:order-2 space-x-3 bg-white dark:bg-gray-800 px-4 py-2 rounded">
-                <h3
-                    class="text-gray-800 dark:text-gray-200 text-lg font-semibold">
-                    Welcome, <span
-                        class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
+                class="flex items-center lg:order-2 space-x-4 bg-white dark:bg-gray-800 px-4 py-2 rounded">
+                <h3 class="text-gray-800 dark:text-gray-200 text-lg font-semibold">
+                    Welcome, <span class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
                 </h3>
+                
+                <button 
+                    (click)="logout()"
+                    class="text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-4 py-2 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900 transition-colors">
+                    Logout
+                </button>
             </div>
 
             <div
@@ -63,24 +67,17 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
+                        <a (click)="goToPolitians()"
+                            class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
                     </li>
                     <li>
-                        <a href="#"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Features</a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Team</a>
-                    </li>
-                    <li>
-                        <a href="#"
+                        <a (click)="goToAboutUs()"
                             class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About
                             Us</a>
                     </li>
                 </ul>
             </div>
+            
         </div>
     </nav>
 </header>
@@ -122,6 +119,50 @@
             <img
                 src="/images/hero.png"
                 alt="mockup">
+        </div>
+    </div>
+</section>
+
+<section class="bg-white dark:bg-gray-900 py-16">
+    <div class="max-w-screen-xl px-4 mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            
+            <div>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    See Public Pulse in Action
+                </h2>
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
+                    Watch how citizens are using our platform to capture and report real-world issues. A quick video can provide undeniable proof of infrastructure problems, sanitation needs, and public hazards.
+                </p>
+                
+                <ul class="space-y-4 text-gray-600 dark:text-gray-300 font-medium">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Visual proof fast-tracks the resolution process.
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Authorities can assess the severity before visiting.
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Builds transparency within the community.
+                    </li>
+                </ul>
+            </div>
+
+            <div id="video-carousel" class="relative w-full" data-carousel="slide">
+                <div class="relative w-full aspect-video overflow-hidden rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 bg-black">
+                    
+                    <div class="w-full aspect-video overflow-hidden rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 bg-black">
+                        <video class="w-full h-full object-cover" controls preload="metadata">
+                            <source src="videos/video2.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
@@ -229,6 +270,7 @@
                         community issues are being resolved. Track the progress
                         from report to solution with full transparency.</p>
                     <button
+                         *ngIf="valid" routerLink="/viewCompletedProblems"
                         class="py-2 px-5 border border-solid border-gray-300 rounded-full gap-2 text-xs text-white font-semibold flex items-center justify-between transition-all duration-500 hover:bg-white/5">
                         View
                         <svg width="6" height="10" viewBox="0 0 6 10"
@@ -239,7 +281,6 @@
                                 stroke-linecap="round"
                                 stroke-linejoin="round"></path>
                         </svg>
-
                     </button>
                 </div>
             </div>
@@ -261,7 +302,7 @@
                     <p class="text-xs font-normal text-white mb-8"> Track the
                         status of all your reports. Monitor progress and stay
                         updated on resolution timelines. </p>
-                    <button
+                    <button *ngIf="valid" routerLink="/viewAllProblems"
                         class="py-2 px-5 border border-solid border-gray-300 rounded-full gap-2 text-xs text-white font-semibold flex items-center justify-between transition-all duration-500 hover:bg-white/5">
                         View Problems
                         <svg width="6" height="10" viewBox="0 0 6 10"
@@ -446,3 +487,5 @@
             Rights Reserved.</span>
     </div>
 </footer>
+
+<script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>

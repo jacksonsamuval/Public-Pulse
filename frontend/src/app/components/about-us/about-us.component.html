@@ -1,0 +1,210 @@
+<header>
+    <nav class="bg-gray-100 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+            <a routerLink="/" class="flex items-center">
+                <img src="/images/logo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
+                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Public Pulse</span>
+            </a>
+
+            <div *ngIf="!valid" class="flex items-center lg:order-2">
+                <a routerLink="/login"
+                    class="text-gray-800 dark:text-white hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">
+                    Login</a>
+                <a routerLink="/register"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 bg-blue-600">Get
+                    started</a>
+                <button data-collapse-toggle="mobile-menu-2" type="button"
+                    class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                    aria-controls="mobile-menu-2" aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"><path
+                            fill-rule="evenodd"
+                            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                            clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+
+            <div *ngIf="valid && user"
+                class="flex items-center lg:order-2 space-x-4 bg-white dark:bg-gray-800 px-4 py-2 rounded">
+                <h3 class="text-gray-800 dark:text-gray-200 text-lg font-semibold">
+                    Welcome, <span class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
+                </h3>
+                <button 
+                    (click)="logout()"
+                    class="text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-4 py-2 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900 transition-colors">
+                    Logout
+                </button>
+            </div>
+
+            <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+                <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                    <li>
+                        <a routerLink="/"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="goToSubmit()"
+                            class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            Report Problem
+                        </a>
+                    </li>
+                    <li>
+                        <a (click)="goToPolitians()"
+                            class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
+                            Politicians
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/aboutUs"
+                            class="block py-2 pr-4 pl-3 rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 text-black dark:text-white"
+                            aria-current="page">
+                            About Us
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </nav>
+</header>
+
+<section class="bg-white dark:bg-gray-900 min-h-screen">
+  <div class="py-12 px-4 mx-auto max-w-screen-xl lg:px-6">
+
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white mb-4">
+        About Public Pulse
+      </h1>
+      <p class="text-gray-500 text-lg dark:text-gray-400 max-w-2xl mx-auto">
+        Empowering citizens to raise their voice and ensuring every problem gets the attention it deserves.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          Our Mission
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Public Pulse aims to bridge the gap between citizens and government authorities.
+          We believe every individual should have the power to report issues and track their resolution transparently.
+        </p>
+        <p class="text-gray-600 dark:text-gray-400">
+          From local infrastructure problems to public service concerns, we ensure your voice reaches the right hands.
+        </p>
+      </div>
+      <img src="/images/about1.png" class="rounded-lg shadow-lg" alt="Mission Image">
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-20">
+      <img src="/images/about2.png" class="rounded-lg shadow-lg order-last lg:order-first" alt="Vision Image">
+      <div>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          Our Vision
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          We envision a future where communities are stronger, governments are more responsive, and problems are solved faster.
+        </p>
+        <p class="text-gray-600 dark:text-gray-400">
+          By leveraging technology, we aim to build a transparent and accountable ecosystem for everyone.
+        </p>
+      </div>
+    </div>
+
+        <div class="max-w-screen-xl px-4 mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            
+            <div>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
+                    See Public Pulse in Action
+                </h2>
+                <p class="mb-6 font-light text-gray-500 md:text-lg dark:text-gray-400">
+                    Watch how citizens are using our platform to capture and report real-world issues. A quick video can provide undeniable proof of infrastructure problems, sanitation needs, and public hazards.
+                </p>
+                
+                <ul class="space-y-4 text-gray-600 dark:text-gray-300 font-medium">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Visual proof fast-tracks the resolution process.
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Authorities can assess the severity before visiting.
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        Builds transparency within the community.
+                    </li>
+                </ul>
+            </div>
+
+            <div id="video-carousel" class="relative w-full" data-carousel="slide">
+                <div class="relative w-full aspect-video overflow-hidden rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 bg-black">
+                    
+                    <div class="w-full aspect-video overflow-hidden rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 bg-black">
+                        <video class="w-full h-full object-cover" controls preload="metadata">
+                            <source src="videos/video1.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="text-center mt-16 mb-16">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+        Why Choose Public Pulse?
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Easy Reporting
+          </h3>
+          <p class="text-gray-500 dark:text-gray-400">
+            Submit issues quickly with images, location, and description.
+          </p>
+        </div>
+
+        <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Real-Time Tracking
+          </h3>
+          <p class="text-gray-500 dark:text-gray-400">
+            Track the status of your complaints from start to finish.
+          </p>
+        </div>
+
+        <div class="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Transparency
+          </h3>
+          <p class="text-gray-500 dark:text-gray-400">
+            Full visibility into actions taken by authorities.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <div *ngIf="!valid" class="text-center">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        Be a Part of the Change
+      </h2>
+      <p class="text-gray-500 dark:text-gray-400 mb-6">
+        Join Public Pulse and help build better communities.
+      </p>
+
+      <a routerLink="/register"
+        class="inline-flex items-center justify-center px-6 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition cursor-pointer">
+        Get Started
+      </a>
+    </div>
+
+  </div>
+</section>

@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NgZone, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-submit-form',
@@ -14,13 +15,97 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './submit-form.component.html',
   styleUrl: './submit-form.component.css'
 })
-export class SubmitFormComponent {
+export class SubmitFormComponent implements OnInit{
 
-  constructor(private api: ApiService, private toastr: ToastrService, private router: Router) {}
+  constructor(private api: ApiService, private toastr: ToastrService, private router: Router, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
   valid: boolean = true;
   token = localStorage.getItem('token');
   user: User | null = null;
+
+  // Add these properties to your class
+  isListening: boolean = false;
+  recognition: any;
+  selectedLanguage: string = 'en-IN'; // Default to English (India)
+
+  startListening() {
+    const SpeechRecognition =
+      (window as any).SpeechRecognition ||
+      (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Speech Recognition not supported in this browser. Please use Chrome or Edge.");
+      return;
+    }
+
+    if (this.recognition) {
+      this.recognition.stop();
+    }
+
+    this.recognition = new SpeechRecognition();
+
+    this.recognition.lang = this.selectedLanguage;
+    this.recognition.interimResults = false;
+    this.recognition.maxAlternatives = 1;
+    this.recognition.continuous = true;
+
+    this.recognition.start();
+
+    // Wrap state changes in ngZone.run() so Angular updates the UI
+    this.recognition.onstart = () => {
+      this.ngZone.run(() => {
+        this.isListening = true;
+        console.log("Listening...");
+      });
+    };
+
+    this.recognition.onresult = (event: any) => {
+      this.ngZone.run(() => {
+        let newTranscript = '';
+        
+        // Loop through the results to safely grab the final text
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            newTranscript += event.results[i][0].transcript;
+          }
+        }
+
+        if (newTranscript.trim() !== '') {
+          console.log("Detected:", newTranscript);
+
+          // Append the new text
+          this.problem.description = this.problem.description
+            ? this.problem.description + " " + newTranscript.trim()
+            : newTranscript.trim();
+
+          // FORCIBLY tell Angular to update the HTML view right now
+          this.cdr.detectChanges(); 
+        }
+      });
+    };
+
+    this.recognition.onerror = (event: any) => {
+      this.ngZone.run(() => {
+        this.isListening = false;
+        console.error("Error:", event.error);
+        if (event.error === 'not-allowed') {
+          this.toastr.error('Microphone permission blocked', 'Error');
+        }
+      });
+    };
+
+    this.recognition.onend = () => {
+      this.ngZone.run(() => {
+        this.isListening = false;
+        console.log("Stopped listening");
+      });
+    };
+  }
+    
+
+  onLanguageChange() {
+  localStorage.setItem('preferredLang', this.selectedLanguage);
+  }
 
   ngOnInit(): void   {
     this.validUser();
@@ -28,8 +113,42 @@ export class SubmitFormComponent {
     if(this.user===null){
       this.valid = false;
     }
+
+    const savedLang = localStorage.getItem('preferredLang');
+    if (savedLang) {
+      this.selectedLanguage = savedLang;
+    }
   }
 
+  
+goToAboutUs() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    this.router.navigate(['/aboutUs']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
+
+goToPolitians() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    this.router.navigate(['/viewPoliticians']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
+goToSubmit() {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    this.router.navigate(['/submitForm']);
+  } else {
+    this.router.navigate(['/login']);
+  }
+}
   loadUser() {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -154,4 +273,17 @@ export class SubmitFormComponent {
         })
       }
     }
+
+      
+logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.token = null;
+    this.user = null;
+    this.valid = false;
+    
+    this.toastr.success('Logged out successfully', 'Success');
+    this.router.navigate(['/login']); // Optional: redirect to login or home
+  }
 }
+

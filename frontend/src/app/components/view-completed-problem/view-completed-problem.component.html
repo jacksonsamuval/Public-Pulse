@@ -1,0 +1,128 @@
+<header>
+  <nav class="bg-gray-100 px-4 py-3 dark:bg-gray-800">
+    <div class="flex justify-between items-center max-w-screen-xl mx-auto">
+
+  <div class="flex items-center">
+    <img src="/images/logo.png" class="h-8 mr-2">
+    <span class="text-xl font-bold dark:text-white">Public Pulse</span>
+  </div>
+
+  <div *ngIf="!valid">
+    <a routerLink="/login" class="mr-3">Login</a>
+    <a routerLink="/register" class="bg-blue-600 text-white px-4 py-1 rounded">Register</a>
+  </div>
+
+  <div *ngIf="valid && user as u" class="text-white">
+    Welcome, <span class="text-blue-400">{{ u.name }}</span>
+  </div>
+
+</div>
+
+  </nav>
+</header>
+
+<div class="min-h-screen bg-gray-100 p-6">
+
+  <h1 class="text-3xl font-bold text-center mb-6">
+    Completed Problems
+  </h1>
+
+
+  <div *ngIf="loading" class="text-center text-lg">
+    Loading problems...
+  </div>
+
+  <div *ngIf="!loading" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+<div *ngFor="let problem of problems"
+     class="bg-white rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+
+  <img *ngIf="problem?.image"
+       [src]="'data:image/jpeg;base64,' + problem?.image"
+       class="w-full h-48 object-cover">
+
+  <div class="p-4 space-y-2">
+
+    <h2 class="font-semibold text-lg">
+      {{ problem?.description }}
+    </h2>
+
+    <p class="text-sm text-gray-600">
+      📍 {{ problem?.address }}, {{ problem?.city }} - {{ problem?.pincode }}
+    </p>
+
+    <div class="flex justify-between items-center">
+
+      <span *ngIf="problem?.status === 'NOT_STARTED'" class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs">Not Started</span>
+      <span *ngIf="problem?.status === 'IN_PROGRESS'" class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">In Progress</span>
+      <span *ngIf="problem?.status === 'REVIEW_PENDING'" class="bg-purple-100 text-purple-700 px-2 py-1 rounded text-xs">Review Pending</span>
+      <span *ngIf="problem?.status === 'COMPLETED'" class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Completed</span>
+
+      <span class="text-xs text-gray-400">
+        {{ problem?.createdAt | date:'medium' }}
+      </span>
+
+    </div>
+
+    <div *ngIf="problem?.officialResponse" class="bg-blue-50 p-2 text-sm rounded">
+      <b>Official:</b> {{ problem?.officialResponse }}
+    </div>
+
+    <div *ngIf="problem?.userResponse" class="bg-green-50 p-2 text-sm rounded">
+      <b>Your Review:</b> {{ problem?.userResponse }}
+    </div>
+
+    <div *ngIf="problem?.rating" class="text-yellow-500 text-sm">
+      ⭐ {{ problem?.rating }} / 5
+    </div>
+
+    <div *ngIf="problem?.status === 'REVIEW_PENDING' && !problem?.userResponse"
+         class="border-t pt-3 mt-3">
+
+      <textarea
+        [(ngModel)]="problem.userMessage"
+        placeholder="Write feedback..."
+        class="w-full border rounded p-2 text-sm mb-2">
+      </textarea>
+
+      <div class="flex gap-1 mb-2">
+        <span *ngFor="let star of [1,2,3,4,5]"
+              (click)="setRating(problem, star)"
+              class="cursor-pointer text-xl"
+              [class.text-yellow-500]="star <= problem.userRating"
+              [class.text-gray-300]="star > problem.userRating">
+          ★
+        </span>
+      </div>
+
+      <button (click)="submitReview(problem)"
+              class="bg-green-600 text-white px-3 py-1 rounded text-sm">
+        Submit
+      </button>
+
+    </div>
+
+    <div *ngIf="problem?.status === 'IN_PROGRESS' || problem?.status === 'NOT_STARTED'"
+         class="text-gray-500 text-sm italic">
+      ⏳ Review available after completion
+    </div>
+
+    <div *ngIf="problem?.status === 'COMPLETED' && problem?.userResponse"
+         class="text-green-600 text-sm italic">
+      ✓ Thanks for your review
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+  <div *ngIf="!loading && problems?.length === 0"
+       class="text-center text-gray-600 mt-10">
+    No problems found
+  </div>
+
+</div>
