@@ -15,9 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class OfficialsAuthService {
@@ -32,6 +30,7 @@ public class OfficialsAuthService {
 
     @Autowired
     private UserRepo userRepo;
+
     public ResponseEntity<?> login(LoginDto loginDto) {
         Users users = userRepo.findUsersByUsername(loginDto.getUsername());
         if (users == null) {
@@ -45,13 +44,20 @@ public class OfficialsAuthService {
 
             if (authentication.isAuthenticated()) {
                 if (!Objects.equals(users.getRole().getName(), "USER")) {
+
                     String token = jwtService.generateToken(authentication.getName());
-                    return ResponseEntity.ok(token);
+
+                    Map<String, Object> response = new HashMap<>();
+                    response.put("token", token);
+                    users.setPassword(null);
+
+                    response.put("user", users);
+
+                    return ResponseEntity.ok(response);
+
                 } else {
                     return ResponseEntity.status(402).body("Users are Not Allowed to Login Here");
                 }
-            } else {
-                return ResponseEntity.status(401).body("Invalid password");
             }
 
         } catch (BadCredentialsException ex) {
@@ -59,11 +65,12 @@ public class OfficialsAuthService {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Server Error");
         }
+        return null;
     }
 
     public ResponseEntity<?> register(OfficialRegisterDto registerDto) {
         Users users = new Users();
-        Roles roles = rolesRepo.findRolesByName(registerDto.getRole());
+        Roles roles = rolesRepo.findRolesByName("OFFICIAL");
         users.setRole(roles);
         users.setAge(registerDto.getAge());
         users.setUsername(registerDto.getUsername());

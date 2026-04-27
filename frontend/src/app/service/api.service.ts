@@ -19,6 +19,14 @@ export class ApiService {
     return this.http.post(environment.API_URL+"/auth/user/login",login);
   }
 
+  loginAdmin(login: Login){
+    return this.http.post(environment.API_URL+"/auth/officials/login",login);
+  }
+
+  registerAdmin(user:User){
+    return this.http.post(environment.API_URL+"/auth/officials/register",user);
+  }
+
   validUser(){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('token')}`
