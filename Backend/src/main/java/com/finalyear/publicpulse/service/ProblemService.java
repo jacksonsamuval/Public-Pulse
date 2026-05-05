@@ -136,4 +136,9 @@ public class ProblemService {
         List<Users> users = userRepo.findByRoleId(2);
         return ResponseEntity.ok(users);
     }
+
+    public ResponseEntity<?> getAllProblemAvailaible() {
+        List<Problem> problems = problemRepo.findByStatus(Status.NOT_STARTED);
+        return ResponseEntity.ok(problems);
+    }
 }

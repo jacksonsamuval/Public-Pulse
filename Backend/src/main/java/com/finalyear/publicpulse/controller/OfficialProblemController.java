@@ -18,6 +18,16 @@ public class OfficialProblemController {
             return ResponseEntity.status(400).body("server error");
         }
     }
+
+    @GetMapping("/getAllProblemAvailaible")
+    public ResponseEntity<?> getAllProblemAvailaible(){
+        try {
+            return problemService.getAllProblemAvailaible();
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
+
     @GetMapping("/solveProblem")
     public ResponseEntity<?> solveProblem(@RequestParam Integer id,@RequestParam String problemResponse){
         try {

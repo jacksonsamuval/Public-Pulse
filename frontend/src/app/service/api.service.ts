@@ -106,4 +106,87 @@ export class ApiService {
   );
 
 }
+
+// ADMIN / OFFICIAL APIs
+
+getProblemsByCity(city: string) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  const params = new HttpParams().set('city', city);
+
+  return this.http.get(
+    environment.API_URL + "/minister/getProblemByCity",
+    { headers, params }
+  );
+}
+
+getProblemsByStatus(status: string) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  const params = new HttpParams().set('status', status);
+
+  return this.http.get(
+    environment.API_URL + "/minister/getByProblemStatus",
+    { headers, params }
+  );
+}
+
+getAssignedProblems() {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  return this.http.get(
+    environment.API_URL + "/minister/getProblemByOfficial",
+    { headers }
+  );
+}
+
+updateProblemStatus(id: number) {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  const params = new HttpParams().set('id', id);
+
+  return this.http.post(
+    environment.API_URL + "/minister/updateProblemStatus",
+    null,
+    { headers, params }
+  );
+}
+
+solveProblem(id: number, problemResponse: string) {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    });
+
+    const params = new HttpParams()
+      .set('id', id.toString()) // <-- Converted to string
+      .set('problemResponse', problemResponse);
+
+    return this.http.get(
+      environment.API_URL + "/minister/solveProblem",
+      { 
+        headers: headers, 
+        params: params,
+        responseType: 'text'
+      }
+    );
+  }
+
+adminGetAllProblems() {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  return this.http.get(
+    environment.API_URL + "/minister/getAllProblemAvailaible",
+    { headers }
+  );
+}
 }

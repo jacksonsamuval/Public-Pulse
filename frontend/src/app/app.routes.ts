@@ -10,6 +10,8 @@ import { ViewPoliticiansComponent } from './components/view-politicians/view-pol
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { AdminRegisterComponent } from './components/admin/register/register.component';
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
+import { AdminViewAllProblemsComponent } from './components/admin/admin-view-all-problems/admin-view-all-problems.component';
+import { AdminOptedProblemsComponent } from './components/admin/admin-opted-problems/admin-opted-problems.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -22,5 +24,7 @@ export const routes: Routes = [
     { path: 'aboutUs', component: AboutUsComponent},
     { path: 'admin-login', component: AdminLoginComponent},
     { path: 'admin-register', component: AdminRegisterComponent},
-    { path: 'admin-home', component: AdminHomeComponent}
+    { path: 'admin-home', component: AdminHomeComponent},
+    { path: 'admin-view-all-problems', component: AdminViewAllProblemsComponent},
+    { path: 'admin-opted-problem', component: AdminOptedProblemsComponent}
 ];
