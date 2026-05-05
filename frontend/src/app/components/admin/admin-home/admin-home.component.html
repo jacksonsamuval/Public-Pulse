@@ -61,18 +61,18 @@
                     </li>
                     <li>
                         <a
-                            (click)="goToManageReports()"
+                            routerLink="/admin-opted-problem"
                             class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">
-                            Manage Reports
+                            Manage Problems
                         </a>
                     </li>
                     <li>
-                        <a (click)="goToAnalytics()"
+                        <a routerLink="/admin-analytics"
                             class="cursor-pointer block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Analytics</a>
                     </li>
                     <li>
-                        <a (click)="goToCitizens()"
-                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Constituents</a>
+                        <a routerLink="/admin-viewPoliticians"
+                            class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
                     </li>
                 </ul>
             </div>
@@ -287,13 +287,13 @@
 
                     </div>
                     <h3
-                        class="py-5 text-white text-lg font-bold xl:text-xl">Manage
-                        Constituents</h3>
+                        class="py-5 text-white text-lg font-bold xl:text-xl">
+                        Analytics</h3>
                     <p class="text-xs font-normal text-white mb-8"> Monitor constituent 
                         activity, verify user accounts, and ensure authentic community engagement. </p>
-                    <button *ngIf="valid" routerLink="/admin/citizens"
+                    <button *ngIf="valid" routerLink="/admin-analytics"
                         class="py-2 px-5 border border-solid border-gray-300 rounded-full gap-2 text-xs text-white font-semibold flex items-center justify-between transition-all duration-500 hover:bg-white/5">
-                        View Users
+                        View Analytics
                         <svg width="6" height="10" viewBox="0 0 6 10"
                             fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

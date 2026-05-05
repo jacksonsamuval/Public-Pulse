@@ -156,7 +156,7 @@ updateProblemStatus(id: number) {
   return this.http.post(
     environment.API_URL + "/minister/updateProblemStatus",
     null,
-    { headers, params }
+    { headers, params, responseType: 'text' }
   );
 }
 
@@ -186,6 +186,17 @@ adminGetAllProblems() {
 
   return this.http.get(
     environment.API_URL + "/minister/getAllProblemAvailaible",
+    { headers }
+  );
+}
+
+getProblemByOfficial() {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  return this.http.get(
+    environment.API_URL + "/minister/getProblemByOfficial",
     { headers }
   );
 }

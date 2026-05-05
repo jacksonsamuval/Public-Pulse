@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-home',
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, RouterModule],
   templateUrl: './admin-home.component.html',
   styleUrl: './admin-home.component.css'
 })
@@ -73,7 +73,7 @@ export class AdminHomeComponent {
     const token = localStorage.getItem('token');
   
     if (token) {
-      this.router.navigate(['/viewPoliticians']);
+      this.router.navigate(['/admin-viewPoliticians']);
     } else {
       this.router.navigate(['/login']);
     }

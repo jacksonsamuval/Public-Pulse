@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-admin-view-all-problems',
   standalone: true, // <-- Make sure this is here if using imports array
-  imports: [CommonModule, FormsModule, RouterModule], // Removed duplicate CommonModule
+  imports: [CommonModule, FormsModule], // Removed duplicate CommonModule
   templateUrl: './admin-view-all-problems.component.html',
   styleUrl: './admin-view-all-problems.component.css'
 })

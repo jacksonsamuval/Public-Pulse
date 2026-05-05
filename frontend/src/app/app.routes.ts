@@ -12,6 +12,8 @@ import { AdminRegisterComponent } from './components/admin/register/register.com
 import { AdminHomeComponent } from './components/admin/admin-home/admin-home.component';
 import { AdminViewAllProblemsComponent } from './components/admin/admin-view-all-problems/admin-view-all-problems.component';
 import { AdminOptedProblemsComponent } from './components/admin/admin-opted-problems/admin-opted-problems.component';
+import { AdminViewPoliticiansComponent } from './components/admin/admin-view-politicians/admin-view-politicians.component';
+import { AnalyticsComponent } from './components/admin/analytics/analytics.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent},
@@ -26,5 +28,7 @@ export const routes: Routes = [
     { path: 'admin-register', component: AdminRegisterComponent},
     { path: 'admin-home', component: AdminHomeComponent},
     { path: 'admin-view-all-problems', component: AdminViewAllProblemsComponent},
-    { path: 'admin-opted-problem', component: AdminOptedProblemsComponent}
+    { path: 'admin-opted-problem', component: AdminOptedProblemsComponent},
+    { path: 'admin-viewPoliticians', component: AdminViewPoliticiansComponent},
+    { path: 'admin-analytics', component: AnalyticsComponent}
 ];
