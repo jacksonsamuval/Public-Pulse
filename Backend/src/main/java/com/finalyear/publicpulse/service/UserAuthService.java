@@ -8,11 +8,14 @@ import com.finalyear.publicpulse.model.Users;
 import com.finalyear.publicpulse.repo.RolesRepo;
 import com.finalyear.publicpulse.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -28,6 +31,9 @@ public class UserAuthService {
 
     @Autowired
     private RolesRepo rolesRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepo userRepo;
@@ -68,7 +74,9 @@ public class UserAuthService {
         users.setUsername(registerDto.getUsername());
         users.setEmail(registerDto.getEmail());
         users.setName(registerDto.getName());
-        users.setPassword(registerDto.getPassword());
+
+        users.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+
         users.setMobileNo(registerDto.getMobileNo());
         users.setAddress(registerDto.getAddress());
         users.setCity(registerDto.getCity());

@@ -79,6 +79,26 @@ export class AdminViewPoliticiansComponent implements OnInit {
     });
   }
 
+  // --- Navigation Methods ---
+
+  goToManageProblems() {
+    if (this.token) {
+      // Matches the path in your app.routes.ts
+      this.router.navigate(['/admin-opted-problem']); 
+    } else {
+      this.router.navigate(['/admin-login']);
+    }
+  }
+
+  goToAnalytics() {
+    if (this.token) {
+      // Matches the path in your app.routes.ts
+      this.router.navigate(['/admin-analytics']); 
+    } else {
+      this.router.navigate(['/admin-login']);
+    }
+  }
+
   // --- Routing Methods ---
 
   goToSubmit() {

@@ -32,4 +32,13 @@ public class OfficialAuthController {
             return ResponseEntity.status(400).body("Server Error");
         }
     }
+
+    @GetMapping("/getUAdminData")
+    public ResponseEntity<?> getUAdminData(){
+        try {
+            return officialsService.getAdminData();
+        } catch (Exception e){
+            return ResponseEntity.status(400).body("server error");
+        }
+    }
 }

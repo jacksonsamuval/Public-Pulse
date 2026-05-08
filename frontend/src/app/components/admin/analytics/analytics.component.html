@@ -1,144 +1,214 @@
-<header>
-    <nav class="bg-gray-100 border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+<header class="sticky top-0 z-50 w-full backdrop-blur-md bg-white/90 border-b border-gray-200 dark:bg-gray-900/90 dark:border-gray-800 shadow-sm">
+    <nav class="px-4 lg:px-6 py-3">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-            <a routerLink="/admin-home" class="flex items-center">
-                <img src="/images/logo.png" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-                <span class="self-center text-xl font-semibold whitespace-nowrap dark:text-white">Public Pulse Admin</span>
+            <a routerLink="/admin-home" class="flex items-center gap-3 transition-transform hover:scale-105">
+                <img src="/images/logo.png" class="h-7 sm:h-9" alt="Public Pulse Logo" />
+                <span class="self-center text-xl font-bold tracking-tight whitespace-nowrap text-gray-900 dark:text-white">Public Pulse <span class="text-indigo-600 dark:text-indigo-400">Admin</span></span>
             </a>
 
-            <div *ngIf="valid && user" class="flex items-center lg:order-2 space-x-4 bg-white dark:bg-gray-800 px-4 py-2 rounded shadow-sm">
-                <h3 class="text-gray-800 dark:text-gray-200 text-sm font-semibold">
-                    Official: <span class="text-blue-600 dark:text-blue-400">{{user.name}}</span>
-                </h3>
-                <button (click)="logout()" class="text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-3 py-1.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900 transition-colors">
+            <div *ngIf="valid && user" class="flex items-center lg:order-2 space-x-5 bg-gray-50 dark:bg-gray-800 px-5 py-2 rounded-full border border-gray-100 dark:border-gray-700 shadow-sm">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-700 dark:text-indigo-300 font-bold text-sm">
+                        {{user.name.charAt(0) | uppercase}}
+                    </div>
+                    <h3 class="text-gray-700 dark:text-gray-300 text-sm font-medium hidden sm:block">
+                        Official: <span class="text-indigo-600 dark:text-indigo-400 font-bold">{{user.name}}</span>
+                    </h3>
+                </div>
+                <div class="h-5 w-px bg-gray-300 dark:bg-gray-600"></div>
+                <button (click)="logout()" class="text-xs font-semibold text-gray-500 hover:text-red-600 dark:text-gray-400 dark:hover:text-red-400 transition-colors flex items-center gap-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                     Logout
                 </button>
             </div>
 
             <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                    <li>
-                        <a routerLink="/admin-home" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Home</a>
-                    </li>
-                    <li>
-                        <a routerLink="/admin-opted-problem" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Manage Problems</a>
-                    </li>
-                    <li>
-                        <a class="cursor-pointer block py-2 pr-4 pl-3 rounded text-primary-700 lg:p-0 dark:text-white" aria-current="page">Analytics</a>
-                    </li>
-                    <li>
-                        <a routerLink="/adminViewPoliticians" class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Politicians</a>
-                    </li>
+    <li>
+        <a routerLink="/admin-home" class="block py-2 text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white transition-colors">Home</a>
+    </li>
+    <li>
+        <a (click)="goToManageProblems()" class="block py-2 text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white transition-colors">Manage Problems</a>
+    </li>
+    <li>
+        <a (click)="goToAnalytics()" class="block py-2 text-gray-600 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white transition-colors">Analytics</a>
+    </li>
+    <li>
+        <a (click)="goToPolitians()" class="cursor-pointer block py-2 text-indigo-600 font-semibold border-b-2 border-indigo-600 dark:text-indigo-400 dark:border-indigo-400" aria-current="page">Politicians</a>
+    </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
 
-<section class="bg-gray-50 dark:bg-gray-900 min-h-screen py-8">
-    <div class="max-w-screen-xl px-4 mx-auto">
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen py-10">
+    <div class="max-w-screen-xl px-4 mx-auto space-y-8">
         
-        <div class="mb-8 flex justify-between items-end">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div>
-                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white">District Dashboard</h1>
+                <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">District Dashboard</h1>
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Real-time overview of municipal issues and resolution progress.</p>
             </div>
-            <button (click)="fetchAnalyticsData()" class="flex items-center gap-2 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-700 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            <button (click)="fetchAnalyticsData()" class="group flex items-center gap-2 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-xl px-5 py-2.5 shadow-sm hover:shadow-md hover:border-indigo-300 hover:text-indigo-600 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all duration-300">
+                <svg class="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                 Refresh Data
             </button>
         </div>
 
-        <div *ngIf="loading" class="flex justify-center items-center py-20">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+        <div *ngIf="loading" class="flex justify-center items-center py-32">
+            <div class="animate-spin rounded-full h-14 w-14 border-t-2 border-b-2 border-indigo-600"></div>
         </div>
 
-        <div *ngIf="!loading">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 h-full w-2 bg-blue-500"></div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Total Reports</p>
-                    <h3 class="text-4xl font-bold text-gray-900 dark:text-white">{{totalCount}}</h3>
+        <div *ngIf="!loading" class="space-y-8">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 border-l-4 border-l-blue-500 transition-all duration-300 hover:-translate-y-1">
+                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Total Reports</p>
+                    <h3 class="text-4xl font-extrabold text-gray-900 dark:text-white">{{totalCount}}</h3>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 h-full w-2 bg-green-500"></div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Successfully Solved</p>
-                    <h3 class="text-4xl font-bold text-green-500">{{solvedCount}}</h3>
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 border-l-4 border-l-green-500 transition-all duration-300 hover:-translate-y-1">
+                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Completed</p>
+                    <h3 class="text-4xl font-extrabold text-green-500">{{solvedCount}}</h3>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 h-full w-2 bg-yellow-400"></div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">In Progress</p>
-                    <h3 class="text-4xl font-bold text-yellow-500">{{inProgressCount}}</h3>
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 border-l-4 border-l-yellow-400 transition-all duration-300 hover:-translate-y-1">
+                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">In Progress</p>
+                    <h3 class="text-4xl font-extrabold text-yellow-500">{{inProgressCount}}</h3>
                 </div>
 
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 relative overflow-hidden">
-                    <div class="absolute right-0 top-0 h-full w-2 bg-red-500"></div>
-                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">Pending Triage</p>
-                    <h3 class="text-4xl font-bold text-red-500">{{pendingCount}}</h3>
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 border-l-4 border-l-red-500 transition-all duration-300 hover:-translate-y-1">
+                    <p class="text-sm font-bold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Not Started</p>
+                    <h3 class="text-4xl font-extrabold text-red-500">{{pendingCount}}</h3>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 mb-8 dark:bg-gray-800 dark:border-gray-700">
-                <div class="flex justify-between items-end mb-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-6 gap-4">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Overall Resolution Rate</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Percentage of total reported issues that have been solved.</p>
+                        <h3 class="text-xl font-extrabold text-gray-900 dark:text-white">Overall Resolution Rate</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Percentage of total reported issues successfully solved across the district.</p>
                     </div>
-                    <span class="text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">{{resolutionRate}}%</span>
+                    <span class="text-4xl font-black bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">{{resolutionRate}}%</span>
                 </div>
-                <div class="w-full bg-gray-200 rounded-full h-4 dark:bg-gray-700 overflow-hidden">
-                    <div class="bg-indigo-600 h-4 rounded-full transition-all duration-1000 ease-out" [style.width.%]="resolutionRate"></div>
+                <div class="w-full bg-gray-100 rounded-full h-5 dark:bg-gray-700 overflow-hidden shadow-inner">
+                    <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 h-5 rounded-full transition-all duration-1000 ease-out relative" [style.width.%]="resolutionRate">
+                        <div class="absolute top-0 left-0 right-0 bottom-0 bg-white/20 animate-pulse"></div>
+                    </div>
                 </div>
-                <div class="mt-4 flex justify-between text-xs text-gray-500 dark:text-gray-400 font-medium">
+                <div class="mt-3 flex justify-between text-xs text-gray-400 dark:text-gray-500 font-bold uppercase tracking-wider">
                     <span>0%</span>
                     <span>50%</span>
                     <span>100%</span>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
-                <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                    <h3 class="text-lg font-bold text-gray-900 dark:text-white">My Assigned Caseload</h3>
-                    <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">{{myAssignedProblems.length}} Tasks</span>
+            <div>
+                <h3 class="text-xl font-extrabold text-gray-900 dark:text-white mb-5 flex items-center gap-2">
+                    <svg class="w-6 h-6 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    My Performance & Impact
+                </h3>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl p-6 text-white shadow-md transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl relative overflow-hidden">
+                        <div class="absolute right-[-20px] top-[-20px] opacity-20">
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                        </div>
+                        <div class="flex items-center gap-3 mb-3 relative z-10">
+                            <div class="p-2.5 bg-white/20 backdrop-blur-sm rounded-xl">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            </div>
+                            <span class="text-sm font-bold text-white/90 uppercase tracking-wider">Total Points</span>
+                        </div>
+                        <h4 class="text-4xl font-black relative z-10">{{adminPoints}}</h4>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider dark:text-gray-400">Attempted</span>
+                            <div class="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-blue-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </div>
+                        </div>
+                        <h4 class="text-3xl font-bold text-gray-900 dark:text-white">{{adminAttempted}}</h4>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider dark:text-gray-400">Resolved</span>
+                            <div class="w-8 h-8 rounded-full bg-green-50 dark:bg-green-900/30 flex items-center justify-center text-green-500">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                        </div>
+                        <h4 class="text-3xl font-bold text-green-500">{{adminSolved}}</h4>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 dark:bg-gray-800 dark:border-gray-700 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-wider dark:text-gray-400">Reported</span>
+                            <div class="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500 dark:text-gray-400">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                        </div>
+                        <h4 class="text-3xl font-bold text-gray-900 dark:text-white">{{adminReported}}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-md border border-gray-100 dark:bg-gray-800 dark:border-gray-700 overflow-hidden">
+                <div class="px-6 py-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50">
+                    <h3 class="text-lg font-extrabold text-gray-900 dark:text-white">My Assigned Caseload</h3>
+                    <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full border border-indigo-200 dark:bg-indigo-900/50 dark:border-indigo-800 dark:text-indigo-300 shadow-sm">{{myAssignedProblems.length}} Tasks Pending</span>
                 </div>
                 
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <table class="w-full text-sm text-left text-gray-600 dark:text-gray-400">
+                        <thead class="text-xs text-gray-500 uppercase bg-gray-50 dark:bg-gray-900/50 dark:text-gray-400 tracking-wider">
                             <tr>
-                                <th scope="col" class="px-6 py-3">ID</th>
-                                <th scope="col" class="px-6 py-3">Issue Title / Description</th>
-                                <th scope="col" class="px-6 py-3">City</th>
-                                <th scope="col" class="px-6 py-3">Status</th>
+                                <th scope="col" class="px-6 py-4 font-bold">ID</th>
+                                <th scope="col" class="px-6 py-4 font-bold">Issue Title / Description</th>
+                                <th scope="col" class="px-6 py-4 font-bold">City</th>
+                                <th scope="col" class="px-6 py-4 font-bold">Status</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                             <tr *ngIf="myAssignedProblems.length === 0">
-                                <td colspan="4" class="px-6 py-8 text-center text-gray-500">
-                                    No problems currently assigned to you.
+                                <td colspan="4" class="px-6 py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center text-gray-400 dark:text-gray-500">
+                                        <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                        <p class="text-base font-medium text-gray-500 dark:text-gray-400">No problems currently assigned to you.</p>
+                                    </div>
                                 </td>
                             </tr>
                             
-                            <tr *ngFor="let prob of myAssignedProblems" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <tr *ngFor="let prob of myAssignedProblems" class="bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700/50 transition-colors duration-150">
+                                <td class="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                                     #{{prob.id || 'N/A'}}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">
                                     {{prob.title || prob.description || 'Issue details unavailable'}}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="px-6 py-4 flex items-center gap-1.5 text-gray-500 dark:text-gray-400">
+                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                     {{prob.city || 'Not specified'}}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="px-2.5 py-0.5 rounded text-xs font-medium"
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold border"
                                         [ngClass]="{
-                                            'bg-yellow-100 text-yellow-800': prob.status === 'IN_PROGRESS' || prob.status === 'In Progress',
-                                            'bg-green-100 text-green-800': prob.status === 'SOLVED' || prob.status === 'Completed',
-                                            'bg-red-100 text-red-800': prob.status === 'PENDING'
+                                            'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/30 dark:border-red-800 dark:text-red-400': prob.status === 'NOT_STARTED',
+                                            'bg-yellow-50 text-yellow-700 border-yellow-200 dark:bg-yellow-900/30 dark:border-yellow-800 dark:text-yellow-400': prob.status === 'PROGRESS',
+                                            'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:border-purple-800 dark:text-purple-400': prob.status === 'REVIEW_PENDING',
+                                            'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/30 dark:border-green-800 dark:text-green-400': prob.status === 'COMPLETED'
                                         }">
+                                        <span class="w-1.5 h-1.5 rounded-full mr-1.5"
+                                            [ngClass]="{
+                                                'bg-red-500': prob.status === 'NOT_STARTED',
+                                                'bg-yellow-500': prob.status === 'PROGRESS',
+                                                'bg-purple-500': prob.status === 'REVIEW_PENDING',
+                                                'bg-green-500': prob.status === 'COMPLETED'
+                                            }">
+                                        </span>
                                         {{prob.status || 'UNKNOWN'}}
                                     </span>
                                 </td>
@@ -152,12 +222,12 @@
     </div>
 </section>
 
-<footer class="p-4 bg-gray-200 md:p-8 lg:p-10 dark:bg-gray-800">
-    <div class="mx-auto max-w-screen-xl text-center">
-        <a href="#" class="flex justify-center items-center text-xl font-semibold text-gray-900 dark:text-white">
-            <img src="/images/logo.png" class="mr-3 h-6 sm:h-8" alt="Flowbite Logo" />
-            Public Pulse Admin
+<footer class="bg-white border-t border-gray-200 py-8 dark:bg-gray-900 dark:border-gray-800 mt-auto">
+    <div class="mx-auto max-w-screen-xl px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+        <a href="#" class="flex items-center gap-2 text-xl font-bold text-gray-900 dark:text-white">
+            <img src="/images/logo.png" class="h-6 sm:h-7 grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all" alt="Public Pulse Logo" />
+            <span class="tracking-tight">Public Pulse Admin</span>
         </a>
-        <span class="block mt-4 text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025-2026 Jackson™. All Rights Reserved.</span>
+        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">© 2025-2026 Jackson™. All Rights Reserved.</span>
     </div>
 </footer>

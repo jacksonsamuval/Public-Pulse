@@ -1,5 +1,6 @@
 package com.finalyear.publicpulse.service;
 
+import com.finalyear.publicpulse.config.UserPrincipal;
 import com.finalyear.publicpulse.dto.LoginDto;
 import com.finalyear.publicpulse.dto.OfficialRegisterDto;
 import com.finalyear.publicpulse.jwt.JwtService;
@@ -13,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -30,6 +32,9 @@ public class OfficialsAuthService {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ResponseEntity<?> login(LoginDto loginDto) {
         Users users = userRepo.findUsersByUsername(loginDto.getUsername());
@@ -76,7 +81,9 @@ public class OfficialsAuthService {
         users.setUsername(registerDto.getUsername());
         users.setEmail(registerDto.getEmail());
         users.setName(registerDto.getName());
-        users.setPassword(registerDto.getPassword());
+
+        users.setPassword(passwordEncoder.encode(registerDto.getPassword()));
+
         users.setMobileNo(registerDto.getMobileNo());
         users.setAddress(registerDto.getAddress());
         users.setCity(registerDto.getCity());
@@ -103,5 +110,14 @@ public class OfficialsAuthService {
         }
         Users users1 = userRepo.save(users);
         return ResponseEntity.status(200).body(users1);
+    }
+
+    public ResponseEntity<?> getAdminData() {
+        Users users = UserPrincipal.getCurrentUser();
+        Optional<Users> users1 = userRepo.findById(users.getId());
+        if (users1.isPresent()) {
+            return ResponseEntity.ok(users1.get());
+        }
+        return ResponseEntity.status(404).body("User not found");
     }
 }

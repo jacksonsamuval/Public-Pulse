@@ -158,7 +158,24 @@ export class AdminViewAllProblemsComponent implements OnInit {
     this.router.navigate(['/login']); 
   }
   
-  goToCitizens(){}
+  // --- Navigation Methods ---
+
+  goToManageProblems() {
+    if (this.token) {
+      // Matches the path in your app.routes.ts
+      this.router.navigate(['/admin-opted-problem']); 
+    } else {
+      this.router.navigate(['/admin-login']);
+    }
+  }
+
+  goToAnalytics() {
+    if (this.token) {
+      // Matches the path in your app.routes.ts
+      this.router.navigate(['/admin-analytics']); 
+    } else {
+      this.router.navigate(['/admin-login']);
+    }
+  }
   goToManageReports(){}
-  goToAnalytics(){}
 }

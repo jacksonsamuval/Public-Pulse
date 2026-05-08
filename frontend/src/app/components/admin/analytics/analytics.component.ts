@@ -40,14 +40,6 @@ export class AnalyticsComponent implements OnInit {
     private apiService: ApiService
   ) {}
 
-  ngOnInit(): void {
-    this.loadUser();
-    this.validUser();
-    if (this.token) {
-      this.fetchAnalyticsData();
-      this.fetchMyAssignedWork();
-    }
-  }
 
   loadUser() {
     const storedUser = localStorage.getItem('user');
@@ -116,9 +108,13 @@ export class AnalyticsComponent implements OnInit {
     // 3. Set the true Total Count
     this.totalCount = uniqueProblems.length;
 
-    // 4. Count them using your EXACT Java Enum strings: NOT_STARTED, IN_PROGRESS, COMPLETED
+    // 4. Count them using your EXACT Java Enum strings
     this.pendingCount = uniqueProblems.filter(p => p.status === 'NOT_STARTED').length;
-    this.inProgressCount = uniqueProblems.filter(p => p.status === 'IN_PROGRESS').length;
+    
+    // FIXED: Changed 'IN_PROGRESS' to 'PROGRESS' to match backend
+    // We can also include 'REVIEW_PENDING' in the In Progress count if you want it tracked here
+    this.inProgressCount = uniqueProblems.filter(p => p.status === 'PROGRESS' || p.status === 'REVIEW_PENDING').length;
+    
     this.solvedCount = uniqueProblems.filter(p => p.status === 'COMPLETED').length;
 
     // 5. Calculate percentage
@@ -132,21 +128,15 @@ export class AnalyticsComponent implements OnInit {
   calculateStats() {
     this.totalCount = this.allProblems.length;
     
-    // NOTE: Adjust the strings ('PENDING', 'SOLVED', etc.) to match your actual backend status fields!
-    this.pendingCount = this.allProblems.filter(p => p.status === 'PENDING' || p.status?.toLowerCase() === 'pending').length;
-    this.inProgressCount = this.allProblems.filter(p => p.status === 'IN_PROGRESS' || p.status?.toLowerCase() === 'in progress').length;
-    this.solvedCount = this.allProblems.filter(p => p.status === 'SOLVED' || p.status?.toLowerCase() === 'solved' || p.status === 'COMPLETED').length;
+    this.pendingCount = this.allProblems.filter(p => p.status === 'NOT_STARTED').length;
+    this.inProgressCount = this.allProblems.filter(p => p.status === 'PROGRESS' || p.status === 'REVIEW_PENDING').length;
+    this.solvedCount = this.allProblems.filter(p => p.status === 'COMPLETED').length;
 
     if (this.totalCount > 0) {
       this.resolutionRate = Math.round((this.solvedCount / this.totalCount) * 100);
     } else {
       this.resolutionRate = 0;
     }
-  }
-
-  // --- Routing Methods ---
-  goToAnalytics() {
-    // Already here, do nothing
   }
 
   logout() {
@@ -158,5 +148,66 @@ export class AnalyticsComponent implements OnInit {
     
     this.toastr.success('Logged out successfully', 'Success');
     this.router.navigate(['/admin-login']); 
+  }
+
+  adminPoints: number = 0;
+  adminAttempted: number = 0;
+  adminSolved: number = 0;
+  adminReported: number = 0;
+
+  ngOnInit(): void {
+    this.loadUser();
+    this.validUser();
+    if (this.token) {
+      this.fetchAnalyticsData();
+      this.fetchMyAssignedWork();
+      this.fetchAdminPerformance(); 
+    }
+  }
+
+  fetchAdminPerformance() {
+    // Make sure your apiService has a method that calls '/getUAdminData'
+    this.apiService.getUAdminData().subscribe({
+      next: (res: any) => {
+        // Map the backend entity fields to your TS variables
+        this.adminPoints = res.totPoints || 0;
+        this.adminAttempted = res.totalProblemAttempted || 0;
+        this.adminSolved = res.totProblemSolved || 0;
+        this.adminReported = res.totProblemsReported || 0;
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error('Error fetching admin performance data:', err);
+      }
+    });
+  }
+
+  // --- Navigation Methods ---
+
+  goToManageProblems() {
+    if (this.token) {
+      // Matches the path in your app.routes.ts
+      this.router.navigate(['/admin-opted-problem']); 
+    } else {
+      this.router.navigate(['/admin-login']);
+    }
+  }
+
+  goToPolitians() {
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      this.router.navigate(['/admin-viewPoliticians']);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  goToAnalytics() {
+    if (this.token) {
+      // Matches the path in your app.routes.ts
+      this.router.navigate(['/admin-analytics']); 
+    } else {
+      this.router.navigate(['/admin-login']);
+    }
   }
 }

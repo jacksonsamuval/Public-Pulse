@@ -190,6 +190,17 @@ adminGetAllProblems() {
   );
 }
 
+getUAdminData() {
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${localStorage.getItem('token')}`
+  });
+
+  return this.http.get(
+    environment.API_URL + "/auth/officials/getUAdminData",
+    { headers }
+  );
+}
+
 getProblemByOfficial() {
   const headers = new HttpHeaders({
     'Authorization': `Bearer ${localStorage.getItem('token')}`
